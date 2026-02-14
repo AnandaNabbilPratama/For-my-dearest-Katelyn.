@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For my dearest, Katelyn.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1 class="brand">Heart Chaser</h1>
+    <p class="tag">🧸❤ Catch my heart if you can! ❤🧸</p>
+    <p class="hint">“Align the claw with the heart and press the button!”</p>
+  </header>
+
+  <main class="stage">
+    <section class="machine" role="application" aria-label="Heart Chaser claw machine">
+      <div class="machine-top"><div class="badge"><span>❤</span></div></div>
+      <div class="track"><div id="track-handle" class="handle"></div></div>
+
+      <div id="viewport" class="viewport">
+        <div id="slot" class="slot" aria-hidden="true"><div class="hole"></div></div>
+        <div class="puffs" aria-hidden="true"></div>
+
+        <!-- Hearts container (multi-heart with one target) -->
+        <div id="hearts"></div>
+
+        <!-- Claw assembly -->
+        <div id="claw" class="claw" aria-hidden="true">
+          <div id="rod" class="rod"></div>
+          <div id="head" class="head">
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="pad">
+          <button id="btn-left" class="key" aria-label="Left">←</button>
+          <button id="btn-drop" class="key red" aria-label="Drop"></button>
+          <button id="btn-right" class="key" aria-label="Right">→</button>
+        </div>
+        <button id="btn-seize" class="cta">SEIZE MY HEART</button>
+      </div>
+    </section>
+
+    <p id="status-msg" class="status" aria-live="polite"></p>
+
+    <div class="hud">
+      <span>Attempts: <strong id="attempt-count">0</strong></span>
+
+      <!-- Fancy Music Button (pill) -->
+      <button id="music-toggle" class="music-btn" aria-pressed="false">
+        <span class="music-pill">
+          <span class="music-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" role="img" aria-label="music">
+              <path fill="currentColor" d="M12 3v10.55A4 4 0 1 1 10 17V7h8V3h-6z"/>
+            </svg>
+          </span>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="music-text">Music: <span id="music-label">Off</span></span>
+          <span class="knob" aria-hidden="true"></span>
+        </span>
+      </button>
+
+      <!-- Hidden audio + file picker (for local music) -->
+      <audio id="bgm" src="assets/theme.mp3" preload="auto" loop style="display:none"></audio>
+      <input id="music-file" type="file" accept="audio/*" style="display:none" />
+    </div>
+  </main>
+
+  <div id="modal-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h2 id="modal-title">A Love Letter For You 💌</h2>
+      <p id="love-letter" class="letter">
+Happy Valentine’s Day, sayangkuuu, cintakuuu, my loveee, mahal koooo, asawa kooo :3
+</p>
+
+<p>
+Who said I wasn’t preparing something for you? Did you really think I’d let a day like this pass without reminding you how much you mean to me?
+</p>
+
+<p>
+Sometimes I sit there and wonder how we even ended up here. Out of all the people in the world, all the random conversations, all the timelines that could have happened… somehow, it led me to you. And now you’re the first person I think about when I wake up and the last one I want to talk to before I fall asleep.
+</p>
+
+<p>
+It’s crazy, isn’t it? We’re separated by distance, by screens, by time zones but somehow you still feel closer to me than anyone physically near me. It was something for me.
+</p>
+
+<p>
+I'm craving you in ways I can’t always explain. I'm craving your voice when I can’t hear it in real life. I'm craving your presence in moments that would be better if you were next to me. I'm craving the simple things, the real touch and affection, seeing you in real life, the warmth of your body. But at the same time, this distance has shown me something powerful. I don’t love you because it’s convenient. I love you because it’s you. And you're mine.
+</p>
+
+<p>
+You’re not just my Valentine today. You’re my safest place in a world that doesn’t slow down. You’re the person I choose even with miles between us. Especially with miles between us.
+</p>
+
+<p>
+One day, this won’t be screens and countdowns and “I wish you were here.” It’ll be real hugs, real dates, real lazy days together. And when that day comes, I’ll look back at this distance and know it was worth every second because it led me to you. Until then, I’m all yours. Across cities, across countries, across whatever stands in the way.
+</p>
+
+<p>
+Happy Valentine’s Day, my love. I can’t wait for the day I get to say it while holding your hand instead of typing it.
+<br><br>
+<h3>Your future husband, N.</h3>
+</p>
+      <div class="modal-actions">
+        <button id="btn-play-again" class="btn primary">Play Again</button>
+        <button id="btn-close" class="btn secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decoy Popup (toast) -->
+  <div id="decoy-popup" class="toast hidden" role="alert" aria-live="polite" aria-atomic="true">
+    <div class="toast-card">
+      <div class="toast-icon" aria-hidden="true">⚠️</div>
+      <div class="toast-body">
+        <strong>Whoopsiee!</strong><br/>
+        <span id="decoy-msg">This is not the correct heart, try again to find my heart ^o^</span>
+      </div>
+      <button id="toast-close" class="toast-close" aria-label="Close">✕</button>
+    </div>
+  </div>
+
+  <div id="confetti" aria-hidden="true"></div>
+  <footer class="foot"><small>Who said that I'm not preparing anything for my girlfriend :3</small></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
